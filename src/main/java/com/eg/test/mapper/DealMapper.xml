@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eg.test.mapper.DealMapper">
+  <resultMap id="BaseResultMap" type="com.eg.test.mapper.entity.Deal">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="area_id" jdbcType="BIGINT" property="areaId" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="deal_class" jdbcType="INTEGER" property="dealClass" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="merchant_sku" jdbcType="BIGINT" property="merchantSku" />
+    <result column="deal_title" jdbcType="VARCHAR" property="dealTitle" />
+    <result column="deal_price" jdbcType="DECIMAL" property="dealPrice" />
+    <result column="merchant_price" jdbcType="DECIMAL" property="merchantPrice" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="settlement_price" jdbcType="DECIMAL" property="settlementPrice" />
+    <result column="settlement_price_max" jdbcType="DECIMAL" property="settlementPriceMax" />
+    <result column="discount" jdbcType="INTEGER" property="discount" />
+    <result column="bonus_points" jdbcType="INTEGER" property="bonusPoints" />
+    <result column="deal_type" jdbcType="INTEGER" property="dealType" />
+    <result column="image_id" jdbcType="BIGINT" property="imageId" />
+    <result column="deal_level" jdbcType="INTEGER" property="dealLevel" />
+    <result column="max_purchase_count" jdbcType="INTEGER" property="maxPurchaseCount" />
+    <result column="publish_status" jdbcType="INTEGER" property="publishStatus" />
+    <result column="inventory_amount" jdbcType="INTEGER" property="inventoryAmount" />
+    <result column="vendibility_amount" jdbcType="INTEGER" property="vendibilityAmount" />
+    <result column="oos_status" jdbcType="INTEGER" property="oosStatus" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="merchant_code" jdbcType="VARCHAR" property="merchantCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, area_id, area_name, sku_id, deal_class, merchant_id, merchant_sku, deal_title, 
+    deal_price, merchant_price, market_price, settlement_price, settlement_price_max, 
+    discount, bonus_points, deal_type, image_id, deal_level, max_purchase_count, publish_status, 
+    inventory_amount, vendibility_amount, oos_status, start_time, end_time, publish_time, 
+    merchant_code, create_time, update_time, category_id
+  </sql>
+  <select id="selectByExample" parameterType="com.eg.test.mapper.entity.DealExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from deal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from deal
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from deal
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.eg.test.mapper.entity.DealExample">
+    delete from deal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.eg.test.mapper.entity.Deal">
+    insert into deal (id, area_id, area_name, 
+      sku_id, deal_class, merchant_id, 
+      merchant_sku, deal_title, deal_price, 
+      merchant_price, market_price, settlement_price, 
+      settlement_price_max, discount, bonus_points, 
+      deal_type, image_id, deal_level, 
+      max_purchase_count, publish_status, inventory_amount, 
+      vendibility_amount, oos_status, start_time, 
+      end_time, publish_time, merchant_code, 
+      create_time, update_time, category_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{areaId,jdbcType=BIGINT}, #{areaName,jdbcType=VARCHAR}, 
+      #{skuId,jdbcType=BIGINT}, #{dealClass,jdbcType=INTEGER}, #{merchantId,jdbcType=BIGINT}, 
+      #{merchantSku,jdbcType=BIGINT}, #{dealTitle,jdbcType=VARCHAR}, #{dealPrice,jdbcType=DECIMAL}, 
+      #{merchantPrice,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, #{settlementPrice,jdbcType=DECIMAL}, 
+      #{settlementPriceMax,jdbcType=DECIMAL}, #{discount,jdbcType=INTEGER}, #{bonusPoints,jdbcType=INTEGER}, 
+      #{dealType,jdbcType=INTEGER}, #{imageId,jdbcType=BIGINT}, #{dealLevel,jdbcType=INTEGER}, 
+      #{maxPurchaseCount,jdbcType=INTEGER}, #{publishStatus,jdbcType=INTEGER}, #{inventoryAmount,jdbcType=INTEGER}, 
+      #{vendibilityAmount,jdbcType=INTEGER}, #{oosStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, #{merchantCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{categoryId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eg.test.mapper.entity.Deal">
+    insert into deal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="dealClass != null">
+        deal_class,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="merchantSku != null">
+        merchant_sku,
+      </if>
+      <if test="dealTitle != null">
+        deal_title,
+      </if>
+      <if test="dealPrice != null">
+        deal_price,
+      </if>
+      <if test="merchantPrice != null">
+        merchant_price,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="settlementPrice != null">
+        settlement_price,
+      </if>
+      <if test="settlementPriceMax != null">
+        settlement_price_max,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="bonusPoints != null">
+        bonus_points,
+      </if>
+      <if test="dealType != null">
+        deal_type,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="dealLevel != null">
+        deal_level,
+      </if>
+      <if test="maxPurchaseCount != null">
+        max_purchase_count,
+      </if>
+      <if test="publishStatus != null">
+        publish_status,
+      </if>
+      <if test="inventoryAmount != null">
+        inventory_amount,
+      </if>
+      <if test="vendibilityAmount != null">
+        vendibility_amount,
+      </if>
+      <if test="oosStatus != null">
+        oos_status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="merchantCode != null">
+        merchant_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="dealClass != null">
+        #{dealClass,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantSku != null">
+        #{merchantSku,jdbcType=BIGINT},
+      </if>
+      <if test="dealTitle != null">
+        #{dealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPrice != null">
+        #{dealPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="merchantPrice != null">
+        #{merchantPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementPrice != null">
+        #{settlementPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementPriceMax != null">
+        #{settlementPriceMax,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="bonusPoints != null">
+        #{bonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="dealType != null">
+        #{dealType,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="dealLevel != null">
+        #{dealLevel,jdbcType=INTEGER},
+      </if>
+      <if test="maxPurchaseCount != null">
+        #{maxPurchaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishStatus != null">
+        #{publishStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryAmount != null">
+        #{inventoryAmount,jdbcType=INTEGER},
+      </if>
+      <if test="vendibilityAmount != null">
+        #{vendibilityAmount,jdbcType=INTEGER},
+      </if>
+      <if test="oosStatus != null">
+        #{oosStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantCode != null">
+        #{merchantCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.eg.test.mapper.entity.DealExample" resultType="java.lang.Long">
+    select count(*) from deal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update deal
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=BIGINT},
+      </if>
+      <if test="record.areaName != null">
+        area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuId != null">
+        sku_id = #{record.skuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.dealClass != null">
+        deal_class = #{record.dealClass,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantId != null">
+        merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchantSku != null">
+        merchant_sku = #{record.merchantSku,jdbcType=BIGINT},
+      </if>
+      <if test="record.dealTitle != null">
+        deal_title = #{record.dealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealPrice != null">
+        deal_price = #{record.dealPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.merchantPrice != null">
+        merchant_price = #{record.merchantPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settlementPrice != null">
+        settlement_price = #{record.settlementPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settlementPriceMax != null">
+        settlement_price_max = #{record.settlementPriceMax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null">
+        discount = #{record.discount,jdbcType=INTEGER},
+      </if>
+      <if test="record.bonusPoints != null">
+        bonus_points = #{record.bonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealType != null">
+        deal_type = #{record.dealType,jdbcType=INTEGER},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=BIGINT},
+      </if>
+      <if test="record.dealLevel != null">
+        deal_level = #{record.dealLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxPurchaseCount != null">
+        max_purchase_count = #{record.maxPurchaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishStatus != null">
+        publish_status = #{record.publishStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.inventoryAmount != null">
+        inventory_amount = #{record.inventoryAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.vendibilityAmount != null">
+        vendibility_amount = #{record.vendibilityAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.oosStatus != null">
+        oos_status = #{record.oosStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publishTime != null">
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.merchantCode != null">
+        merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update deal
+    set id = #{record.id,jdbcType=BIGINT},
+      area_id = #{record.areaId,jdbcType=BIGINT},
+      area_name = #{record.areaName,jdbcType=VARCHAR},
+      sku_id = #{record.skuId,jdbcType=BIGINT},
+      deal_class = #{record.dealClass,jdbcType=INTEGER},
+      merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      merchant_sku = #{record.merchantSku,jdbcType=BIGINT},
+      deal_title = #{record.dealTitle,jdbcType=VARCHAR},
+      deal_price = #{record.dealPrice,jdbcType=DECIMAL},
+      merchant_price = #{record.merchantPrice,jdbcType=DECIMAL},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      settlement_price = #{record.settlementPrice,jdbcType=DECIMAL},
+      settlement_price_max = #{record.settlementPriceMax,jdbcType=DECIMAL},
+      discount = #{record.discount,jdbcType=INTEGER},
+      bonus_points = #{record.bonusPoints,jdbcType=INTEGER},
+      deal_type = #{record.dealType,jdbcType=INTEGER},
+      image_id = #{record.imageId,jdbcType=BIGINT},
+      deal_level = #{record.dealLevel,jdbcType=INTEGER},
+      max_purchase_count = #{record.maxPurchaseCount,jdbcType=INTEGER},
+      publish_status = #{record.publishStatus,jdbcType=INTEGER},
+      inventory_amount = #{record.inventoryAmount,jdbcType=INTEGER},
+      vendibility_amount = #{record.vendibilityAmount,jdbcType=INTEGER},
+      oos_status = #{record.oosStatus,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      category_id = #{record.categoryId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eg.test.mapper.entity.Deal">
+    update deal
+    <set>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="dealClass != null">
+        deal_class = #{dealClass,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantSku != null">
+        merchant_sku = #{merchantSku,jdbcType=BIGINT},
+      </if>
+      <if test="dealTitle != null">
+        deal_title = #{dealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPrice != null">
+        deal_price = #{dealPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="merchantPrice != null">
+        merchant_price = #{merchantPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementPrice != null">
+        settlement_price = #{settlementPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementPriceMax != null">
+        settlement_price_max = #{settlementPriceMax,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="bonusPoints != null">
+        bonus_points = #{bonusPoints,jdbcType=INTEGER},
+      </if>
+      <if test="dealType != null">
+        deal_type = #{dealType,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="dealLevel != null">
+        deal_level = #{dealLevel,jdbcType=INTEGER},
+      </if>
+      <if test="maxPurchaseCount != null">
+        max_purchase_count = #{maxPurchaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishStatus != null">
+        publish_status = #{publishStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryAmount != null">
+        inventory_amount = #{inventoryAmount,jdbcType=INTEGER},
+      </if>
+      <if test="vendibilityAmount != null">
+        vendibility_amount = #{vendibilityAmount,jdbcType=INTEGER},
+      </if>
+      <if test="oosStatus != null">
+        oos_status = #{oosStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantCode != null">
+        merchant_code = #{merchantCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eg.test.mapper.entity.Deal">
+    update deal
+    set area_id = #{areaId,jdbcType=BIGINT},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      deal_class = #{dealClass,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      merchant_sku = #{merchantSku,jdbcType=BIGINT},
+      deal_title = #{dealTitle,jdbcType=VARCHAR},
+      deal_price = #{dealPrice,jdbcType=DECIMAL},
+      merchant_price = #{merchantPrice,jdbcType=DECIMAL},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      settlement_price = #{settlementPrice,jdbcType=DECIMAL},
+      settlement_price_max = #{settlementPriceMax,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=INTEGER},
+      bonus_points = #{bonusPoints,jdbcType=INTEGER},
+      deal_type = #{dealType,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=BIGINT},
+      deal_level = #{dealLevel,jdbcType=INTEGER},
+      max_purchase_count = #{maxPurchaseCount,jdbcType=INTEGER},
+      publish_status = #{publishStatus,jdbcType=INTEGER},
+      inventory_amount = #{inventoryAmount,jdbcType=INTEGER},
+      vendibility_amount = #{vendibilityAmount,jdbcType=INTEGER},
+      oos_status = #{oosStatus,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      merchant_code = #{merchantCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      category_id = #{categoryId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
