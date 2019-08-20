@@ -1,0 +1,12 @@
+server:
+  port: 6001
+spring:
+  application:
+    name: tuangou_project
+#    数据库
+  datasource:
+    username: root
+    password: 2437262431
+    url: jdbc://mysql:127.0.0.1:3306/tuangou?serverTimeZone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
