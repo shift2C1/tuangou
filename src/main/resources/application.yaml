@@ -10,3 +10,4 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/groupon?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+time_cron: "*/10 * * * * *"
